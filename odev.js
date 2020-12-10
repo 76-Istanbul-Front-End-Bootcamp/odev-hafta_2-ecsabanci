@@ -43,17 +43,26 @@ numbers.multiply();
   Ornek : isValidName(" J ohn") false donmeli
 */
 function isValidName(name) {
-  // girilen değerin number olup olmadığı kontrol ediliyor. Number ise direkt false dönüyor..
-  if(!isNaN(Number(name))) {
-    return false;
+  try {
+    let oneLetterIndex = name.trim().split(" ").some(el => { return el.length == 1 });
+
+    if (oneLetterIndex) {
+      return false;
+      //console.log("Invalid Name!")
+    }
+    else if (!isNaN(Number(name)) || Number(name) == 0) {
+      return false;
+      //console.log("Invalid Name!")
+    }
+    else {
+      return true;
+      //console.log("Valid Name!")
+    }
   }
-  // girilen değer number değil string ise burada gereksiz boşluk olup olmadığı kontrol ediliyor.
-  else if (name.includes(" ")) {
+
+  catch (e) {
     return false;
-  }
-  // girilen değer string ve boşluk yoksa direkt true return ediliyor.
-  else {
-    return true;
+    //console.log("Invalid Name!")
   }
 }
 
@@ -71,12 +80,18 @@ function isValidName(name) {
 */
 function katilimSaati(dersSayisi, dersSuresi) {
   let product = Number(dersSayisi) * Number(dersSuresi);
-  // çarpım sonucu elde edilen değer NaN ise if bloğuna giriliyor.
+
   if(isNaN(product)){
-    console.log("Please try to enter valid parameters....")
+    return false;
+  }
+  else if(!Boolean(product)){
+    return false;
+  }
+  else if(Number(dersSayisi) === dersSayisi && dersSayisi % 1 !== 0){
+    return false;
   }
   else {
-    console.log(product)
+    return true;
   }
 }
 
